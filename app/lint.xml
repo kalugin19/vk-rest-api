@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="IconColors">
+        <ignore path="src/main/res/start_screen/drawable-hdpi/ic_logout_24dp.png" />
+        <ignore path="src/main/res/start_screen/drawable-xhdpi/ic_logout_24dp.png" />
+        <ignore path="src/main/res/start_screen/drawable-xxhdpi/ic_logout_24dp.png" />
+        <ignore path="src/main/res/start_screen/drawable-xxxhdpi/ic_logout_24dp.png" />
+    </issue>
+    <issue id="IconLocation">
+        <ignore path="src/main/res/start_screen/drawable/ic_shape_accent.9.png" />
+        <ignore path="src/main/res/start_screen/drawable/ic_shape_gray.9.png" />
+    </issue>
+</lint>

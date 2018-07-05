@@ -1,0 +1,27 @@
+<resources>
+
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:dialogTheme">@style/AppThemeDialog</item>
+        <item name="android:alertDialogTheme">@style/AppThemeAlertDialog</item>
+    </style>
+
+    <!-- Styles for dialogs in Lollipop, use accent color from applicable theme. -->
+    <style name="AppThemeDialog" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:colorAccent">?attr/colorAccent</item>
+    </style>
+    <style name="AppThemeAlertDialog" parent="android:Theme.Material.Light.Dialog.Alert">
+        <item name="android:colorAccent">?attr/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
+
+
+</resources>
