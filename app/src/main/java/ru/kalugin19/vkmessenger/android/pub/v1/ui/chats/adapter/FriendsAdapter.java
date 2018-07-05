@@ -84,17 +84,14 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return friends.size();
     }
 
-    public void setData(List<Friend> items) {
-        this.friends.clear();
-        if (items != null && !items.isEmpty()) {
-            addFriends(items);
-        }
-        notifyDataSetChanged();
-    }
-
     public void addFriends(List<Friend> items) {
+        int previousDataSize = this.friends.size();
         this.friends.addAll(items);
-        notifyDataSetChanged();
+        try {
+            notifyItemRangeInserted(previousDataSize, items.size());
+        } catch (IllegalStateException ex) {
+            notifyDataSetChanged();
+        }
     }
 
     public void enableLoad() {
@@ -111,10 +108,12 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public void remove(Friend friend) {
-        int ind = friends.indexOf(friend);
-        friends.remove(friend);
-        notifyItemRemoved(ind);
+    /**
+     * Очистить список
+     */
+    public void clearList() {
+        friends.clear();
+        notifyDataSetChanged();
     }
 
 

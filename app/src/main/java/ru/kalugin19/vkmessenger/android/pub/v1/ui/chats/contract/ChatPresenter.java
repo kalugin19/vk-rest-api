@@ -18,6 +18,7 @@ public class ChatPresenter implements IChatContract.Presenter {
 
     private IChatContract.View view;
     private final ChatsModel chatsModel;
+    private final int COUNT = 5;
 
     @Inject
     ChatPresenter(ChatsModel chatsModel) {
@@ -55,8 +56,9 @@ public class ChatPresenter implements IChatContract.Presenter {
     }
 
     @Override
-    public void loadFriends(int page) {
-        chatsModel.requestFriends(100, 1)
+    public void loadFriends(final int page) {
+        int offset = COUNT * page;
+        chatsModel.requestFriends(COUNT, offset)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<Optional<List<Friend>>>() {
                     @Override
@@ -66,42 +68,39 @@ public class ChatPresenter implements IChatContract.Presenter {
 
                     @Override
                     public void onSuccess(Optional<List<Friend>> listOptional) {
-                        if (listOptional!=null){
+                        if (page == 0) {
+                            view.showProgressUsers(true);
+                        } else {
+                            view.startProgressLoadMoreUsers();
+                        }
+
+                        if (listOptional != null) {
                             List<Friend> friends = listOptional.getValue();
-                            if (friends!=null && !friends.isEmpty()){
-                                view.setFirstPageFriends(friends);
+                            if (friends != null && !friends.isEmpty()) {
+                                if (page == 0) {
+                                    view.showProgressUsers(false);
+                                    view.setFirstPageFriends(friends, friends.size() < COUNT);
+                                } else {
+                                    view.stopProgressLoadMoreUsers();
+                                    view.addFriends(friends, friends.size() < COUNT);
+                                }
+                            }
+                        } else {
+                            if (page == 0) {
+                                view.showProgressUsers(false);
+                            } else {
+                                view.stopProgressLoadMoreUsers();
                             }
                         }
-//                        if (view != null) {
-//                            if (pageListMessage > 0) {
-//                                view.stopProgressGetPageListMessage();
-//                            } else {
-//                                view.stopProgressGetListMessage();
-//                            }
-//                            if (listResponseFromObservable.getException() != null) {
-//                                ActionInMessageScreen actionInMessageScreen = null;
-//                                if (pageListMessage == 0) {
-//                                    view.showErrorGetListMessage();
-//                                    actionInMessageScreen = ActionInMessageScreen.LOAD_MESSAGE_FIRST_PAGE;
-//                                } else {
-//                                    view.showErrorLoadPageMessage();
-//                                }
-//                                processError(listResponseFromObservable.getException(), actionInMessageScreen);
-//                            } else {
-//                                if (listResponseFromObservable.getData() != null) {
-//                                    view.addListMessage(listResponseFromObservable.getData().getPageListMessage(), listResponseFromObservable.getData().isEndPage());
-//                                } else {
-//                                    view.addListMessage(new ArrayList<MessageInfo>(), false);
-//                                }
-//                            }
-//
-//                    }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        System.out.println(e);
-                    }
+                        if (page == 0) {
+                            view.showProgressUsers(false);
+                        } else {
+                            view.stopProgressLoadMoreUsers();
+                        }                    }
                 });
     }
 }

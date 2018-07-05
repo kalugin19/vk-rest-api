@@ -59,6 +59,7 @@ public class ChatsFragment extends BaseFragment implements IChatContract.View {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 endlessScrollListener.setLoading(true);
+                presenter.loadFriends(page);
             }
         };
         recyclerChats.addOnScrollListener(endlessScrollListener);
@@ -82,7 +83,7 @@ public class ChatsFragment extends BaseFragment implements IChatContract.View {
     public void onResume() {
         super.onResume();
         presenter.onResume();
-        presenter.loadFriends(1);
+        presenter.loadFriends(0);
     }
 
     @Override
@@ -98,16 +99,45 @@ public class ChatsFragment extends BaseFragment implements IChatContract.View {
     }
 
     @Override
-    public void setFirstPageFriends(List<Friend> friends) {
-        if (friends != null) {
-            friendsAdapter.setData(friends);
+    public void setFirstPageFriends(List<Friend> friends, boolean isEnd) {
+        if (friends.isEmpty()) {
+//            showUserEmptyState(true);
+        } else {
+//            showUserEmptyState(false);
+            endlessScrollListener.setEnd(isEnd);
+            endlessScrollListener.setLoading(false);
+            friendsAdapter.clearList();
+            addFriends(friends, isEnd);
         }
     }
 
     @Override
-    public void addFriends(List<Friend> friends) {
-        if (friends != null && !friends.isEmpty()) {
+    public void addFriends(List<Friend> friends, boolean isEnd) {
+        endlessScrollListener.setEnd(isEnd);
+        endlessScrollListener.setLoading(false);
+        if (friendsAdapter != null) {
             friendsAdapter.addFriends(friends);
         }
+    }
+
+    @Override
+    public void startProgressLoadMoreUsers() {
+        if (friendsAdapter != null) {
+            friendsAdapter.enableLoad();
+            endlessScrollListener.setLoading(true);
+        }
+    }
+
+    @Override
+    public void stopProgressLoadMoreUsers() {
+        if (friendsAdapter != null) {
+            friendsAdapter.disableLoad();
+            endlessScrollListener.setLoading(false);
+        }
+    }
+
+    @Override
+    public void showProgressUsers(boolean flag) {
+        progressBar.setVisibility(flag ? View.VISIBLE : View.GONE);
     }
 }

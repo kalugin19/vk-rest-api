@@ -11,9 +11,15 @@ public interface IChatContract {
 
     interface View extends ViewContract {
 
-        void setFirstPageFriends(List<Friend> friends);
+        void setFirstPageFriends(List<Friend> friends, boolean isEnd);
 
-        void addFriends(List<Friend> friends);
+        void addFriends(List<Friend> friends, boolean isEnd);
+
+        void startProgressLoadMoreUsers();
+
+        void stopProgressLoadMoreUsers();
+
+        void showProgressUsers(boolean flag);
     }
 
     interface Presenter extends BasePresenter<View> {

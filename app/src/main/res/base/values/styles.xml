@@ -12,6 +12,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="RaisedButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorAccentLight</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
