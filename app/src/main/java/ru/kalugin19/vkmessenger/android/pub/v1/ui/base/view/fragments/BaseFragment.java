@@ -5,15 +5,12 @@ import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.AndroidSupportInjection;
 import dagger.android.support.HasSupportFragmentInjector;
 
 /**
  * Fragment : Base
- *
- * @author Abu-Khalil Jumana
  */
 public abstract class BaseFragment extends Fragment implements HasSupportFragmentInjector {
     @SuppressWarnings("WeakerAccess")

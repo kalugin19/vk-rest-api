@@ -13,6 +13,7 @@ public class RelationPartner{
 	@SerializedName("first_name")
 	private String firstName;
 
+	@SuppressWarnings("unused")
 	public void setLastName(String lastName){
 		this.lastName = lastName;
 	}
@@ -21,14 +22,17 @@ public class RelationPartner{
 		return lastName;
 	}
 
+	@SuppressWarnings("unused")
 	public void setId(int id){
 		this.id = id;
 	}
 
+	@SuppressWarnings("unused")
 	public int getId(){
 		return id;
 	}
 
+	@SuppressWarnings("unused")
 	public void setFirstName(String firstName){
 		this.firstName = firstName;
 	}

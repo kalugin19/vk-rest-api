@@ -1,7 +1,5 @@
 package ru.kalugin19.vkmessenger.android.pub.v1.data.dto.friends;
 
-import android.content.Intent;
-
 import com.google.gson.annotations.SerializedName;
 
 public class Friend {
@@ -31,14 +29,17 @@ public class Friend {
 		return lastName;
 	}
 
+	@SuppressWarnings("unused")
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	@SuppressWarnings("unused")
 	public Integer getOnline() {
 		return online;
 	}
 
+	@SuppressWarnings("unused")
 	public void setOnline(Integer online) {
 		this.online = online;
 	}
@@ -47,6 +48,7 @@ public class Friend {
 		return id;
 	}
 
+	@SuppressWarnings("unused")
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -55,6 +57,7 @@ public class Friend {
 		return photo100;
 	}
 
+	@SuppressWarnings("unused")
 	public void setPhoto100(String photo100) {
 		this.photo100 = photo100;
 	}
@@ -63,22 +66,27 @@ public class Friend {
 		return firstName;
 	}
 
+	@SuppressWarnings("unused")
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
+	@SuppressWarnings("unused")
 	public String getDeactivated() {
 		return deactivated;
 	}
 
+	@SuppressWarnings("unused")
 	public void setDeactivated(String deactivated) {
 		this.deactivated = deactivated;
 	}
 
+	@SuppressWarnings("unused")
 	public Integer getCity() {
 		return city;
 	}
 
+	@SuppressWarnings("unused")
 	public void setCity(Integer city) {
 		this.city = city;
 	}

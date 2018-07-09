@@ -17,8 +17,6 @@ import ru.kalugin19.vkmessenger.android.pub.v1.ui.base.view.BaseActivity;
 
 /**
  * Helper class to automatically inject fragments if they implement {@link Injectable}.
- *
- * @author Abu-Khalil Jumana
  */
 public class AppInjector {
     private AppInjector() {

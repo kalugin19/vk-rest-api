@@ -7,8 +7,6 @@ import javax.inject.Scope;
 
 /**
  * Scope : Per Activity
- *
- * @author Furmanov Sergey
  */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)

@@ -2,7 +2,7 @@ package ru.kalugin19.vkmessenger.android.pub.v1.data.dto.user_profile;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UniversitiesItem{
+class UniversitiesItem{
 
 	@SerializedName("country")
 	private Integer country;
@@ -31,74 +31,92 @@ public class UniversitiesItem{
 	@SerializedName("faculty")
 	private Integer faculty;
 
+	@SuppressWarnings("unused")
 	public void setCountry(int country){
 		this.country = country;
 	}
 
+	@SuppressWarnings("unused")
 	public int getCountry(){
 		return country;
 	}
 
+	@SuppressWarnings("unused")
 	public void setFacultyName(String facultyName){
 		this.facultyName = facultyName;
 	}
 
+	@SuppressWarnings("unused")
 	public String getFacultyName(){
 		return facultyName;
 	}
 
+	@SuppressWarnings("unused")
 	public void setCity(int city){
 		this.city = city;
 	}
 
+	@SuppressWarnings("unused")
 	public int getCity(){
 		return city;
 	}
 
+	@SuppressWarnings("unused")
 	public void setGraduation(int graduation){
 		this.graduation = graduation;
 	}
 
+	@SuppressWarnings("unused")
 	public int getGraduation(){
 		return graduation;
 	}
 
+	@SuppressWarnings("unused")
 	public void setName(String name){
 		this.name = name;
 	}
 
+	@SuppressWarnings("unused")
 	public String getName(){
 		return name;
 	}
 
+	@SuppressWarnings("unused")
 	public void setId(int id){
 		this.id = id;
 	}
 
+	@SuppressWarnings("unused")
 	public int getId(){
 		return id;
 	}
 
+	@SuppressWarnings("unused")
 	public void setEducationStatus(String educationStatus){
 		this.educationStatus = educationStatus;
 	}
 
+	@SuppressWarnings("unused")
 	public String getEducationStatus(){
 		return educationStatus;
 	}
 
+	@SuppressWarnings("unused")
 	public void setEducationForm(String educationForm){
 		this.educationForm = educationForm;
 	}
 
+	@SuppressWarnings("unused")
 	public String getEducationForm(){
 		return educationForm;
 	}
 
+	@SuppressWarnings("unused")
 	public void setFaculty(int faculty){
 		this.faculty = faculty;
 	}
 
+	@SuppressWarnings("unused")
 	public int getFaculty(){
 		return faculty;
 	}

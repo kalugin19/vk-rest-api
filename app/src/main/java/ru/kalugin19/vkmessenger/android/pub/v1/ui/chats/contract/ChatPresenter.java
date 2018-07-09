@@ -1,24 +1,25 @@
 package ru.kalugin19.vkmessenger.android.pub.v1.ui.chats.contract;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.observers.DisposableSingleObserver;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.Optional;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.friends.Friend;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.models.ChatsModel;
 
+/**
+ * реализация презентера "Спиоск друзей"
+ */
 public class ChatPresenter implements IChatContract.Presenter {
 
     private IChatContract.View view;
     private final ChatsModel chatsModel;
-    private final int COUNT = 5;
+    private final int COUNT = 100;
 
     @Inject
     ChatPresenter(ChatsModel chatsModel) {
@@ -63,13 +64,15 @@ public class ChatPresenter implements IChatContract.Presenter {
                 .subscribe(new SingleObserver<Optional<List<Friend>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        if (page == 0) {
+                            view.showProgressUsers(true);
+                        }
                     }
 
                     @Override
                     public void onSuccess(Optional<List<Friend>> listOptional) {
                         if (page == 0) {
-                            view.showProgressUsers(true);
+                            view.showProgressUsers(false);
                         } else {
                             view.startProgressLoadMoreUsers();
                         }
@@ -84,10 +87,15 @@ public class ChatPresenter implements IChatContract.Presenter {
                                     view.stopProgressLoadMoreUsers();
                                     view.addFriends(friends, friends.size() < COUNT);
                                 }
+                            } else {
+                                if (page == 0){
+                                    view.showUserEmptyState(true);
+                                }
                             }
                         } else {
                             if (page == 0) {
                                 view.showProgressUsers(false);
+                                view.showUserEmptyState(true);
                             } else {
                                 view.stopProgressLoadMoreUsers();
                             }
@@ -100,7 +108,32 @@ public class ChatPresenter implements IChatContract.Presenter {
                             view.showProgressUsers(false);
                         } else {
                             view.stopProgressLoadMoreUsers();
-                        }                    }
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void sendMessage(int userId, String message) {
+        view.showProgressSending(true);
+        chatsModel.sendMessage(userId, message)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Optional<Integer>>() {
+                    @Override
+                    public void onSuccess(Optional<Integer> integerOptional) {
+                        if (integerOptional!=null && integerOptional.getValue()!=null){
+                            view.messageWasSuccessfullySend();
+                            view.closeBottomSheet();
+                        }
+                        view.showProgressSending(false);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showErrorSending();
+                        view.showProgressSending(false);
+
+                    }
                 });
     }
 }

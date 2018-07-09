@@ -1,7 +1,6 @@
 package ru.kalugin19.vkmessenger.android.pub.v1.data.models;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,12 +13,11 @@ import retrofit2.Response;
 import ru.kalugin19.vkmessenger.android.pub.v1.BuildConfig;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.Optional;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.Util;
+import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.BaseResponse;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.friends.Friend;
-import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.friends.GetFriendsResponse;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.exceptions.RestExceptionFactory;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.local.preferences.UserPreferenceHelper;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.remote.RestService;
-import ru.kalugin19.vkmessenger.android.pub.v1.data.remote.RetrofitHelper;
 
 public class ChatsModel {
 
@@ -28,16 +26,14 @@ public class ChatsModel {
 
     @Inject
     public ChatsModel(RestService restService, UserPreferenceHelper userPreferenceHelper) {
-        this.restService = RetrofitHelper.getInstanceRestService();
+        this.restService = restService;
         this.userPreferenceHelper = userPreferenceHelper;
     }
 
     public Single<Optional<List<Friend>>> requestFriends(int count, int offset) {
         HashMap<String, String> params = new HashMap<>();
-
         String userId = userPreferenceHelper.getUserId();
         String token = userPreferenceHelper.getToken();
-
         params.put(Util.USER_IDS, userId);
         params.put(Util.VERSION, BuildConfig.VERSION);
         params.put(Util.NAME_CASE, Util.NOM);
@@ -49,17 +45,18 @@ public class ChatsModel {
 
         return restService.getFriends(params)
                 .subscribeOn(Schedulers.io())
-                .map(new Function<Response<GetFriendsResponse>, Optional<List<Friend>>>() {
+                .map(new Function<Response<BaseResponse<List<Friend>>>, Optional<List<Friend>>>() {
                     @Override
-                    public Optional<List<Friend>> apply(Response<GetFriendsResponse> response) throws Exception {
+                    public Optional<List<Friend>> apply(Response<BaseResponse<List<Friend>>> response) {
                         if (response != null) {
                             if (!response.isSuccessful()) {
                                 RestExceptionFactory.throwException(response);
                             }
-                            GetFriendsResponse getFriendsResponse = response.body();
+                            BaseResponse<List<Friend>> getFriendsResponse = response.body();
                             if (getFriendsResponse != null) {
-                                List<Friend> friends = convertResponseToFriends(getFriendsResponse);
-                                if (friends != null) {
+
+                                List<Friend> friends = getFriendsResponse.getResponseData();
+                                if (friends != null && !friends.isEmpty()) {
                                     return new Optional<>(friends);
                                 }
                             }
@@ -69,14 +66,30 @@ public class ChatsModel {
                 });
     }
 
-
-    private List<Friend> convertResponseToFriends(GetFriendsResponse getFriendsResponse) {
-        if (getFriendsResponse != null) {
-            List<Friend> friends = getFriendsResponse.getItems();
-            if (friends != null && !friends.isEmpty()) {
-                return friends;
-            }
-        }
-        return null;
+    public Single<Optional<Integer>> sendMessage(int userId, String message) {
+        String token = userPreferenceHelper.getToken();
+        HashMap<String, String> params = new HashMap<>();
+        params.put(Util.ACCESS_TOKEN, token);
+        params.put(Util.MESSAGE, message);
+        params.put(Util.USER_ID, String.valueOf(userId));
+        params.put(Util.VERSION, BuildConfig.VERSION);
+        return restService.sendMessage(params)
+                .subscribeOn(Schedulers.io())
+                .map(new Function<Response<BaseResponse<Integer>>, Optional<Integer>>() {
+                    @SuppressWarnings("RedundantThrows")
+                    @Override
+                    public Optional<Integer> apply(Response<BaseResponse<Integer>> response) throws Exception {
+                        if (response != null) {
+                            if (!response.isSuccessful()) {
+                                RestExceptionFactory.throwException(response);
+                            }
+                            BaseResponse<Integer> codeResponse = response.body();
+                            if (codeResponse != null && codeResponse.getResponseData() != null) {
+                                return new Optional<>(codeResponse.getResponseData());
+                            }
+                        }
+                        return new Optional<>(null);
+                    }
+                });
     }
 }

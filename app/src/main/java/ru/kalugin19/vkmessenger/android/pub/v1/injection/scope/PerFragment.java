@@ -7,8 +7,6 @@ import javax.inject.Scope;
 
 /**
  * Scope : Per Activity
- *
- * @author AbuHalil Jumana.
  */
 @SuppressWarnings("unused")
 @Scope

@@ -26,24 +26,32 @@ import ru.kalugin19.vkmessenger.android.pub.v1.data.Util;
 import ru.kalugin19.vkmessenger.android.pub.v1.ui.main.MainActivity;
 import ru.kalugin19.vkmessenger.android.pub.v1.ui.start_splash.presenter.ISplashContract;
 
-
+/**
+ * Сплэш
+ */
 public class SplashActivity extends AppCompatActivity implements ISplashContract.View {
 
+    @SuppressWarnings("WeakerAccess")
     @Inject
     ISplashContract.Presenter splashPresenter;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.splashProgressBar)
     ProgressBar progressBar;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.activity_splash_screen_global_view)
     View globalView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.logo)
     ImageView logo;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.signIn)
     Button singInBtn;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.webView)
     WebView webView;
 

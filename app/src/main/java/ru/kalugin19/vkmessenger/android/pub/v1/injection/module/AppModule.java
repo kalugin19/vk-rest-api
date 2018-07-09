@@ -5,7 +5,6 @@ import android.content.Context;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.local.preferences.PreferencesHelper;

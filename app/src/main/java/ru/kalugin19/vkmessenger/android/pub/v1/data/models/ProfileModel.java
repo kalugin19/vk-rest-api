@@ -14,10 +14,10 @@ import retrofit2.Response;
 import ru.kalugin19.vkmessenger.android.pub.v1.BuildConfig;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.Optional;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.Util;
+import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.BaseResponse;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.user_profile.Counters;
-import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.user_profile.GetUserDataResponse;
+import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.user_profile.ProfileDto;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.user_profile.RelationPartner;
-import ru.kalugin19.vkmessenger.android.pub.v1.data.dto.user_profile.ResponseItem;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.entity.Profile;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.exceptions.RestExceptionFactory;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.remote.RestService;
@@ -41,16 +41,16 @@ public class ProfileModel {
         params.put(Util.ACCESS_TOKEN, oauth);
         return restService.getProfile(params)
                 .subscribeOn(Schedulers.io())
-                .map(new Function<Response<GetUserDataResponse>, Optional<Profile>>() {
+                .map(new Function<Response<BaseResponse<List<ProfileDto>>>, Optional<Profile>>() {
                     @Override
-                    public Optional<Profile> apply(Response<GetUserDataResponse> response) throws Exception {
+                    public Optional<Profile> apply(Response<BaseResponse<List<ProfileDto>>> response) {
                         if (response != null) {
                             if (!response.isSuccessful()) {
                                 RestExceptionFactory.throwException(response);
                             }
-                            GetUserDataResponse getUserDataResponse = response.body();
+                            BaseResponse<List<ProfileDto>> getUserDataResponse = response.body();
                             if (getUserDataResponse != null) {
-                                Profile profile = convertGetUserDataResponseToProfile(getUserDataResponse);
+                                Profile profile = convertGetUserDataResponseToProfile(getUserDataResponse.getResponseData());
                                 if (profile != null) {
                                     return new Optional<>(profile);
                                 }
@@ -62,13 +62,11 @@ public class ProfileModel {
     }
 
 
-    private Profile convertGetUserDataResponseToProfile(GetUserDataResponse getUserDataResponse) {
-        if (getUserDataResponse != null) {
-            List<ResponseItem> responseList = getUserDataResponse.getResponse();
-            if (responseList != null && !responseList.isEmpty()) {
-                ResponseItem responseItem = responseList.get(0);
+    private Profile convertGetUserDataResponseToProfile(List<ProfileDto> profileDtos) {
+            if (profileDtos != null && !profileDtos.isEmpty()) {
+                ProfileDto responseItem = profileDtos.get(0);
                 if (responseItem != null) {
-                    Profile profile = new Profile();
+                    ru.kalugin19.vkmessenger.android.pub.v1.data.entity.Profile profile = new ru.kalugin19.vkmessenger.android.pub.v1.data.entity.Profile();
                     if (!TextUtils.isEmpty(responseItem.getFirstName())) {
                         profile.setFirstName(responseItem.getFirstName());
                     }
@@ -98,7 +96,6 @@ public class ProfileModel {
                     return profile;
                 }
             }
-        }
         return null;
     }
 

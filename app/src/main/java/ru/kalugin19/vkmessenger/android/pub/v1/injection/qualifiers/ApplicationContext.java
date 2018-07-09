@@ -7,8 +7,6 @@ import javax.inject.Qualifier;
 
 /**
  * Qualifier : Application Context
- *
- * @author Furmanov Sergey
  */
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)

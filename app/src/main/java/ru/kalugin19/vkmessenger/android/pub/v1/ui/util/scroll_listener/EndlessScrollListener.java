@@ -12,7 +12,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
     // The minimum amount of items to have below your current scroll position
     // before loading more.
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 100;
     // The current offset index of data you have loaded
     private int currentPage = 0;
     // True if we are still waiting for the last set of data to load.
@@ -126,7 +126,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
     // Defines the process for actually loading more data based on page
     @SuppressWarnings("UnusedParameters")
-    public abstract void onLoadMore(int page, int totalItemsCount, RecyclerView view);
+    protected abstract void onLoadMore(int page, int totalItemsCount, RecyclerView view);
 
     @SuppressWarnings("unused")
     public void setEnd(boolean end) {
@@ -138,6 +138,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         this.isLoading = isLoading;
     }
 
+    @SuppressWarnings("unused")
     public void errorLoadLastPage() {
         currentPage--;
     }
@@ -147,6 +148,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
      *
      * @return true - еобходимо проскролить к последнему сообщению, false - скролить не нужно
      */
+    @SuppressWarnings("unused")
     public boolean isVisibilityLastElement() {
         int totalItemCount = mLayoutManager.getItemCount();
         if (isReverse) {

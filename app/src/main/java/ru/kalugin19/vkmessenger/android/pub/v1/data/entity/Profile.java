@@ -63,6 +63,7 @@ public class Profile {
         this.relationPartner = relationPartner;
     }
 
+    @SuppressWarnings("unused")
     public int getFriendsCount() {
         return friendsCount;
     }
@@ -71,6 +72,7 @@ public class Profile {
         this.friendsCount = friendsCount;
     }
 
+    @SuppressWarnings("unused")
     public int getFollowersCount() {
         return followersCount;
     }

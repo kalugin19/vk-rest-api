@@ -12,7 +12,9 @@ import ru.kalugin19.vkmessenger.android.pub.v1.data.entity.Profile;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.local.preferences.UserPreferenceHelper;
 import ru.kalugin19.vkmessenger.android.pub.v1.data.models.ProfileModel;
 
-
+/**
+ * Реализация презентера Профиля
+ */
 public class ProfilePresenter implements IProfileContract.Presenter {
 
     private IProfileContract.View view;

@@ -4,8 +4,7 @@ import java.io.IOException;
 
 /**
  * Исключение - нет интернета
- *
- * @author Gusev Andrey
  */
-public class NoInternetException extends IOException {
+@SuppressWarnings("unused")
+class NoInternetException extends IOException {
 }

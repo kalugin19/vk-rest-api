@@ -43,62 +43,77 @@ public class Counters{
 	@SerializedName("gifts")
 	private int gifts;
 
+	@SuppressWarnings("unused")
 	public void setAlbums(int albums){
 		this.albums = albums;
 	}
 
+	@SuppressWarnings("unused")
 	public int getAlbums(){
 		return albums;
 	}
 
+	@SuppressWarnings("unused")
 	public void setSubscriptions(int subscriptions){
 		this.subscriptions = subscriptions;
 	}
 
+	@SuppressWarnings("unused")
 	public int getSubscriptions(){
 		return subscriptions;
 	}
 
+	@SuppressWarnings("unused")
 	public void setNotes(int notes){
 		this.notes = notes;
 	}
 
+	@SuppressWarnings("unused")
 	public int getNotes(){
 		return notes;
 	}
 
+	@SuppressWarnings("unused")
 	public void setOnlineFriends(int onlineFriends){
 		this.onlineFriends = onlineFriends;
 	}
 
+	@SuppressWarnings("unused")
 	public int getOnlineFriends(){
 		return onlineFriends;
 	}
 
+	@SuppressWarnings("unused")
 	public void setGroups(int groups){
 		this.groups = groups;
 	}
 
+	@SuppressWarnings("unused")
 	public int getGroups(){
 		return groups;
 	}
 
+	@SuppressWarnings("unused")
 	public void setVideos(int videos){
 		this.videos = videos;
 	}
 
+	@SuppressWarnings("unused")
 	public int getVideos(){
 		return videos;
 	}
 
+	@SuppressWarnings("unused")
 	public void setPhotos(int photos){
 		this.photos = photos;
 	}
 
+	@SuppressWarnings("unused")
 	public int getPhotos(){
 		return photos;
 	}
 
+	@SuppressWarnings("unused")
 	public void setFriends(int friends){
 		this.friends = friends;
 	}
@@ -107,14 +122,17 @@ public class Counters{
 		return friends;
 	}
 
+	@SuppressWarnings("unused")
 	public void setUserPhotos(int userPhotos){
 		this.userPhotos = userPhotos;
 	}
 
+	@SuppressWarnings("unused")
 	public int getUserPhotos(){
 		return userPhotos;
 	}
 
+	@SuppressWarnings("unused")
 	public void setFollowers(int followers){
 		this.followers = followers;
 	}
@@ -123,26 +141,32 @@ public class Counters{
 		return followers;
 	}
 
+	@SuppressWarnings("unused")
 	public void setPages(int pages){
 		this.pages = pages;
 	}
 
+	@SuppressWarnings("unused")
 	public int getPages(){
 		return pages;
 	}
 
+	@SuppressWarnings("unused")
 	public void setAudios(int audios){
 		this.audios = audios;
 	}
 
+	@SuppressWarnings("unused")
 	public int getAudios(){
 		return audios;
 	}
 
+	@SuppressWarnings("unused")
 	public void setGifts(int gifts){
 		this.gifts = gifts;
 	}
 
+	@SuppressWarnings("unused")
 	public int getGifts(){
 		return gifts;
 	}

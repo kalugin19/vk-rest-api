@@ -1,6 +1,8 @@
 package ru.kalugin19.vkmessenger.android.pub.v1.ui.profile;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,23 +20,32 @@ import ru.kalugin19.vkmessenger.android.pub.v1.ui.base.view.fragments.BaseFragme
 import ru.kalugin19.vkmessenger.android.pub.v1.ui.profile.contract.IProfileContract;
 import ru.kalugin19.vkmessenger.android.pub.v1.ui.util.ViewUtil;
 
+/**
+ * Фрагмент "Профиль"
+ */
 public class ProfileFragment extends BaseFragment implements IProfileContract.View {
 
+    @SuppressWarnings("WeakerAccess")
     @Inject
     IProfileContract.Presenter presenter;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.photoProfile)
     CircleImageView circleImageView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.name)
     TextView name;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.university_name)
     TextView universityName;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.bdayText)
     TextView bDay;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.love_partner)
     TextView partner;
 
@@ -46,20 +57,12 @@ public class ProfileFragment extends BaseFragment implements IProfileContract.Vi
     }
 
 
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        return fragment;
+    public static ProfileFragment newInstance() {
+        return new ProfileFragment();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, v);
         presenter.attachView(this);
@@ -67,6 +70,11 @@ public class ProfileFragment extends BaseFragment implements IProfileContract.Vi
     }
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        presenter.loadProfile();
+    }
 
     @Override
     public void onStart() {
@@ -78,7 +86,6 @@ public class ProfileFragment extends BaseFragment implements IProfileContract.Vi
     public void onResume() {
         super.onResume();
         presenter.onResume();
-        presenter.loadProfile();
     }
 
     @Override
@@ -89,7 +96,9 @@ public class ProfileFragment extends BaseFragment implements IProfileContract.Vi
 
     @Override
     public void setProfile(Profile profile) {
-        ViewUtil.loadProfilePhoto(getActivity(), circleImageView, profile.getThumbPhoto());
+        if (getActivity() != null) {
+            ViewUtil.loadProfilePhoto(getActivity(), circleImageView, profile.getThumbPhoto());
+        }
         name.setText(getString(R.string.first_last_name, profile.getFirstName(), profile.getLastName()));
         universityName.setText(profile.getUniversityName());
         partner.setText(profile.getRelationPartner());

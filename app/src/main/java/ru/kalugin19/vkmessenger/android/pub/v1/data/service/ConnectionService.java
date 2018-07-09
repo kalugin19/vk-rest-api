@@ -8,8 +8,6 @@ import ru.kalugin19.vkmessenger.android.pub.v1.VKMessengerApplication;
 
 /**
  * Connection Service
- *
- * @author Gusev Andrey
  */
 public class ConnectionService {
 

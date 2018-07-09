@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import ru.kalugin19.vkmessenger.android.pub.v1.R;
@@ -13,9 +12,12 @@ import ru.kalugin19.vkmessenger.android.pub.v1.ui.chats.ChatsFragment;
 import ru.kalugin19.vkmessenger.android.pub.v1.ui.profile.ProfileFragment;
 
 
+/**
+ * Main Activity
+ */
 public class MainActivity extends BaseActivity {
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -25,7 +27,7 @@ public class MainActivity extends BaseActivity {
                     replaceFragment(ChatsFragment.newInstance());
                     return true;
                 case R.id.navigation_profile:
-                    replaceFragment(ProfileFragment.newInstance("ee", "ff"));
+                    replaceFragment(ProfileFragment.newInstance());
                     return true;
             }
             return false;

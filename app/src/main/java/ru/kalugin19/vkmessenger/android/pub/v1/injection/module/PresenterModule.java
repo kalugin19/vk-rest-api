@@ -13,6 +13,7 @@ import ru.kalugin19.vkmessenger.android.pub.v1.ui.start_splash.presenter.SplashP
 /**
  * PresenterModule
  */
+@SuppressWarnings("unused")
 @Module
 public abstract class PresenterModule {
 

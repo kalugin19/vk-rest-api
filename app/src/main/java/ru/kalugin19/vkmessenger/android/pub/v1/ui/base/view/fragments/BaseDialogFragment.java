@@ -12,8 +12,6 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 /**
  * Базовый класс для DialogFragments, обеспечивающий привязку к DI
- *
- * @author Kalugin Valeriy
  */
 public class BaseDialogFragment extends DialogFragment implements HasSupportFragmentInjector {
     @SuppressWarnings("WeakerAccess")

@@ -7,12 +7,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,24 +28,22 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private Context context;
     private final List<Friend> friends;
-    private final IFriendClickListener mListener;
     private final static int ITEM_FRIEND = 0;
     private final static int ITEM_LOAD = 1;
+    private final IFriendInteraction iFriendInteraction;
 
-    public FriendsAdapter(IFriendClickListener mListener) {
-        friends = new ArrayList<>();
-        this.mListener = mListener;
+    public FriendsAdapter(IFriendInteraction iFriendInteraction) {
+        this.friends = new ArrayList<>();
+        this.iFriendInteraction = iFriendInteraction;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position >= 0 && position < friends.size()) {
-            if (friends.get(position) == null) {
-                return ITEM_LOAD;
-            }
+        if (friends.get(position) == null) {
+            return ITEM_LOAD;
+        } else {
             return ITEM_FRIEND;
         }
-        return super.getItemViewType(position);
     }
 
     @NonNull
@@ -68,13 +64,19 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof FriendViewHolder) {
             FriendViewHolder friendViewHolder = (FriendViewHolder) holder;
-            Friend friend = friends.get(position);
+            final Friend friend = friends.get(position);
             if (friend != null) {
                 if (!TextUtils.isEmpty(friend.getFirstName()) && !TextUtils.isEmpty(friend.getLastName())) {
                     String name = context.getString(R.string.first_last_name, friend.getFirstName(), friend.getLastName());
                     friendViewHolder.name.setText(name);
                 }
                 ViewUtil.loadProfilePhoto(context, friendViewHolder.friendPhoto, friend.getPhoto100());
+                friendViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        iFriendInteraction.onClick(friend);
+                    }
+                });
             }
         }
     }
@@ -146,7 +148,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public interface IFriendClickListener {
-        void onFriendClick(Friend friend);
+    public interface IFriendInteraction {
+        void onClick(Friend friend);
     }
 }

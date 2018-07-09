@@ -1,6 +1,5 @@
 package ru.kalugin19.vkmessenger.android.pub.v1.ui.base.presenter;
 
-
 import ru.kalugin19.vkmessenger.android.pub.v1.ui.base.view.ViewContract;
 
 /**

@@ -2,7 +2,6 @@ package ru.kalugin19.vkmessenger.android.pub.v1;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.Service;
 import android.content.Context;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
@@ -12,7 +11,6 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import dagger.android.HasServiceInjector;
 import ru.kalugin19.vkmessenger.android.pub.v1.injection.component.AppInjector;
 
 /**
@@ -22,6 +20,7 @@ public class VKMessengerApplication extends Application  implements HasActivityI
 
     private static VKMessengerApplication instance;
 
+    @SuppressWarnings("WeakerAccess")
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 

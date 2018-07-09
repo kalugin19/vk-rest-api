@@ -1,24 +1,16 @@
 package ru.kalugin19.vkmessenger.android.pub.v1.data.local.preferences;
 
-import android.content.SharedPreferences;
-
 import javax.inject.Inject;
 
 
 
 /**
  * Класс для работы с локальными данными пользователя
- *
- * @author Gusev Andrey
  */
-
 public class UserPreferenceHelper {
 
     private static final String PREF_TOKEN = "token";
     private static final String PREF_USER_ID = "user_id";
-
-
-    private static UserPreferenceHelper instance;
     private final PreferencesHelper mPref;
 
 

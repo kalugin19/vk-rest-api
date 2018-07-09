@@ -2,6 +2,7 @@ package ru.kalugin19.vkmessenger.android.pub.v1.data.remote;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
@@ -23,6 +24,7 @@ import ru.kalugin19.vkmessenger.android.pub.v1.data.service.ConnectionService;
 public class RetrofitHelper {
 
 
+    private static final int TIME_OUT = 60;
     public static RestService restService;
 
     /**
@@ -42,6 +44,9 @@ public class RetrofitHelper {
                     httpClient.cookieJar(new MyCookieJar());
 //                    httpClient.addInterceptor(new CommonInterceptor());
                     httpClient.addInterceptor(logging);
+                    httpClient.connectTimeout(TIME_OUT, TimeUnit.SECONDS);
+                    httpClient.readTimeout(TIME_OUT, TimeUnit.SECONDS);
+                    httpClient.writeTimeout(TIME_OUT, TimeUnit.SECONDS);
                     httpClient.followRedirects(true);
                     httpClient.followSslRedirects(true);
                     OkHttpClient client = httpClient.build();
